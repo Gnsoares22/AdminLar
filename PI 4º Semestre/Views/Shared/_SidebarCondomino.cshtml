@@ -1,0 +1,79 @@
+﻿@using WebHelpers.Mvc5
+
+
+<aside class="main-sidebar control-sidebar-dark">
+    <section class="sidebar">
+
+        <br />
+
+        @* Começo do botão Procurar *@
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Procurar..." id="search-input">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        @* Fim do botão procurar *@
+
+
+        @* O tão glorioso menu lateral kkk *@
+        <ul class="sidebar-menu" data-widget="tree">
+            <br />
+
+            <li class="@Url.IsLinkActive("Inicio", "Condomino")">
+                <a href="@Url.Action("Inicio", "Condomino")"><i class="fa fa-home"></i> <span>Home</span></a>
+
+            <li class="@Url.IsLinkActive("Index", "Condomino")">
+                <a href="@Url.Action("Index", "Condomino")"><i class="fa fa-users"></i> <span> Visitantes</span> </a>
+
+            <li class="@Url.IsLinkActive("Encomendas", "Condomino")">
+                <a href="@Url.Action("Encomendas", "Condomino")"><i class="fa fa-gift"></i> <span> Encomendas</span> </a>
+
+            <li class="@Url.IsLinkActive("Inadimplencias", "Condomino")">
+                <a href="@Url.Action("Inadimplencias", "Condomino")"><i class="fa  fa-money"></i> <span>Pendências</span>  </a>
+
+            <li class="@Url.IsLinkActive("Atas", "Condomino")">
+                <a href="@Url.Action("Atas", "Condomino")"><i class="fa fa-file-o"></i> <span>Atas do Condomínio</span></a>
+
+            <li class="@Url.IsLinkActive("Balancetes", "Condomino")">
+                <a href="@Url.Action("Balancetes", "Condomino")"><i class="fa fa-dollar"></i> <span>Balancetes</span></a>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-child"></i> <span>Área de Lazer</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Areas", "Condomino")"><i class="fa fa-circle-o"></i> Áreas de Lazer </a></li>
+                    <li><a href="@Url.Action("Index", "Reservas")"><i class="fa fa-circle-o"></i> Agendar Área  </a></li>
+                    <li><a href="@Url.Action("MinhasReservas", "Reservas")"><i class="fa fa-circle-o"></i> Minhas Reservas</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bullhorn"></i> <span>Ocorrências</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "Ocorrencias")"><i class="fa fa-circle-o"></i> Realizar uma ocorrência </a></li>
+                </ul>
+            </li>
+
+        </ul>
+        @* Fim do menu lateral *@
+
+    </section>
+</aside>
+

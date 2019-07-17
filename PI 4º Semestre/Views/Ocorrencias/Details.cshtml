@@ -1,0 +1,67 @@
+﻿@model AdminLar.Models.Ocorrencias
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ocorrencias</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apartamento.NomeApe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Condomino.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condomino.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datahoraocorrencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datahoraocorrencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CondoNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CondoNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ocoid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

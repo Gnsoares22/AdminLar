@@ -1,0 +1,714 @@
+﻿@using System.Web.Optimization
+@using WebHelpers.Mvc5.Enum
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>AdminLar</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+
+    <!-- Bootstrap -->
+
+    @Styles.Render("~/Bundles/css")
+    @Styles.Render("~/Bundles/LandingPage")
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="home">
+        <!-- Background Image -->
+        <div class="bg-img" style="background-image: url('../../Imagens/condominio_comercial.jpg')">
+            <div class="overlay"></div>
+        </div>
+        <!-- /Background Image -->
+        <!-- Nav -->
+        <nav id="nav" class="navbar nav-transparent">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <!-- Logo -->
+                    <div class="navbar-brand">
+                        <a href="#">
+                            @*<img class="logo" src="~/Imagens/logo2.png" alt="logo">*@
+                            <h4 style="color:white; margin-top: 9px; font-size:25px;"> AdminLar </h4>
+                        </a>
+                    </div>
+                    <!-- /Logo -->
+                    <!-- Collapse nav button -->
+                    <div class="nav-collapse">
+                        <span></span>
+                    </div>
+                    <!-- /Collapse nav button -->
+                </div>
+
+                <!--  Main navigation  -->
+                <ul class="main-nav nav navbar-nav navbar-right">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Sobre nós</a></li>
+                    <li><a href="#service">Serviços</a></li>
+                    <li><a href="#pricing">Preços</a></li>
+                    <li><a href="#team">Equipe</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                    <li><a data-toggle="modal" data-target="#myModal" style="cursor:pointer">Logar no sistema</a></li>
+                </ul>
+                <!-- /Main navigation -->
+
+            </div>
+        </nav>
+        <!-- /Nav -->
+        <!-- home wrapper -->
+        <div class="home-wrapper">
+            <div class="container">
+                <div class="row">
+
+                    <!-- home content -->
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="home-content">
+                            <h1 class="white-text"> AdminLAR</h1>
+                            <h3 class="white-text">
+                                A solução que seu condomínio precisa
+                            </h3>
+                            @*<button class="white-btn">Veja</button>
+                                <button class="main-btn">LandingPage</button>*@
+                        </div>
+                    </div>
+                    <!-- /home content -->
+
+                </div>
+            </div>
+        </div>
+        <!-- /home wrapper -->
+
+    </header>
+    <!-- /Header -->
+    <!-- About -->
+    <div id="about" class="section md-padding">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Section header -->
+                <div class="section-header text-center">
+                    <h2 class="title"> Seja bem vindo </h2>
+                </div>
+                <!-- /Section header -->
+                <!-- about -->
+                <div class="col-md-4">
+                    <div class="about">
+                        <i class="fa fa-cogs"></i>
+                        <h3>Personalização</h3>
+                        <p>Personalizações com a logo marca da sua empresa</p>
+                        @*<a href="#">Read more</a>*@
+                    </div>
+                </div>
+                <!-- /about -->
+                <!-- about -->
+                <div class="col-md-4">
+                    <div class="about">
+                        <i class="fa fa-magic"></i>
+                        <h3>Software Responsivo</h3>
+                        <p>Não se preocupe, você não vai precisar instalar mais um aplicativo em seu celular!</p>
+                        @*<a href="#">Read more</a>*@
+                    </div>
+                </div>
+                <!-- /about -->
+                <!-- about -->
+                <div class="col-md-4">
+                    <div class="about">
+                        <i class="fa fa-mobile"></i>
+                        <h3>Gráficos</h3>
+                        <p>Gráficos interativos, situação financeira, administrativa e da portaria.</p>
+                        @*<a href="#">Read more</a>*@
+                    </div>
+                </div>
+                <!-- /about -->
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /About -->
+    <!-- Service -->
+    <div id="service" class="section md-padding">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Section header -->
+                <div class="section-header text-center">
+                    <h2 class="title">Nossos Serviços</h2>
+                </div>
+                <!-- /Section header -->
+                <!-- service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-diamond"></i>
+                        <h3 class="text-center">Software 100% Responsivo</h3>
+                        <p class="text-center">Se adapta em diferentes tipos de telas.</p>
+                    </div>
+                </div>
+                <!-- /service -->
+                <!-- service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-home"></i>
+                        <h3 class="text-center">Reserva de áreas de lazer</h3>
+                        <p class="text-center">Reserve ambientes de forma simples e autônoma</p>
+                    </div>
+                </div>
+                <!-- /service -->
+                <!-- service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-file"></i>
+                        <h3 class="text-center">Relatórios em tempo real</h3>
+                        <p class="text-center">Veja arquivos e relatórios do seu condomínio</p>
+                    </div>
+                </div>
+                <!-- /service -->
+                <!-- service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-cloud"></i>
+                        <h3 class="text-center">Sistema 100% Nuvem</h3>
+                        <p class="text-center">Sistema 100% web com toda segurança e conﬁabilidade que um sistema pode oferecer</p>
+                    </div>
+                </div>
+                <!-- /service -->
+                <!-- service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-money"></i>
+                        <h3 class="text-center">Múltiplos Uploads</h3>
+                        <p class="text-center">Uploads de lançamentos de despesas, balanços e atas de assembleia do seu condomínio</p>
+                    </div>
+                </div>
+                <!-- /service -->
+                <!-- service -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-users"></i>
+                        <h3 class="text-center">Cadastro de Usuários</h3>
+                        <p class="text-center">Cadastro completo de moradores, funcionários e serviços do seu condomínio</p>
+                    </div>
+                </div>
+                <!-- /service -->
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Service -->
+    <!-- Why Choose Us -->
+    <div id="features" class="section md-padding bg-grey">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- why choose us content -->
+                <div class="col-md-6">
+                    <div class="section-header">
+                        <h2 class="title">Porque Escolher AdminLar?</h2>
+                    </div>
+                    <p>Adminlar é uma ferramenta online para administração de condomínios com conceitos diferenciados de usabilidade e navegação. E de forma simples e objetiva, irá facilitar o trabalho diário para os síndicos, moradores e funcionários dos condomínios trazendo reduções de gastos.</p>
+                    <div class="feature">
+                        <i class="fa fa-check"></i>
+                        <p> Fácil, prático e intuitivo</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fa fa-check"></i>
+                        <p> Totalmente online </p>
+                    </div>
+                    <div class="feature">
+                        <i class="fa fa-check"></i>
+                        <p>Acesse do computador ou dispositivos móveis</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fa fa-check"></i>
+                        <p> Administre de forma transparente </p>
+                    </div>
+                    <div class="feature">
+                        <i class="fa fa-check"></i>
+                        <p> Baixo custo mensal </p>
+                    </div>
+                </div>
+                <!-- /why choose us content -->
+                <!-- About slider -->
+                <div class="col-md-6">
+                    <div id="about-slider" class="owl-carousel owl-theme">
+                        <img class="img-responsive" src="~/Imagens/condominio_comercial.jpg" height="500" width="800" alt="">
+                        <img class="img-responsive" src="~/Imagens/condominio_comercial.jpg" height="500" alt="">
+                        <img class="img-responsive" src="~/Imagens/condominio_comercial.jpg" height="500" alt="">
+                        <img class="img-responsive" src="~/Imagens/condominio_comercial.jpg" height="500" alt="">
+                    </div>
+                </div>
+                <!-- /About slider -->
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Why Choose Us -->
+    <!-- Numeros -->
+    @*<div id="numbers" class="section sm-padding">
+
+            <!-- Background Image -->
+            <div class="bg-img" style="background-image: url('../../Imagens/condo2.jpg')">
+                <div class="overlay"></div>
+            </div>
+            <!-- /Background Image -->
+            <!-- Container -->
+            <div class="container">
+
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- number -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="number">
+                            <i class="fa fa-users"></i>
+                            <h3 class="white-text"><span class="counter">451</span></h3>
+                            <span class="white-text">Happy clients</span>
+                        </div>
+                    </div>
+                    <!-- /number -->
+                    <!-- number -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="number">
+                            <i class="fa fa-trophy"></i>
+                            <h3 class="white-text"><span class="counter">12</span></h3>
+                            <span class="white-text">Awards won</span>
+                        </div>
+                    </div>
+                    <!-- /number -->
+                    <!-- number -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="number">
+                            <i class="fa fa-coffee"></i>
+                            <h3 class="white-text"><span class="counter">154</span>K</h3>
+                            <span class="white-text">Cups of Coffee</span>
+                        </div>
+                    </div>
+                    <!-- /number -->
+                    <!-- number -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="number">
+                            <i class="fa fa-file"></i>
+                            <h3 class="white-text"><span class="counter">45</span></h3>
+                            <span class="white-text">Projects completed</span>
+                        </div>
+                    </div>
+                    <!-- /number -->
+
+                </div>
+                <!-- /Row -->
+
+            </div>
+            <!-- /Container -->
+
+        </div>*@
+    <!-- /Numeros -->
+    <!-- Pricing -->
+    <div id="pricing" class="section md-padding">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Section header -->
+                <div class="section-header text-center">
+                    <h2 class="title">Nossos Planos </h2>
+                </div>
+                <!-- /Section header -->
+                <!-- pricing -->
+                <div class="col-sm-4">
+                    <div class="pricing">
+                        <div class="price-head">
+                            <span class="price-title">Plano Bronze</span>
+                            <div class="price">
+                                <h3>49,90<span class="duration">/ mês</span></h3>
+                            </div>
+                        </div>
+                        <ul class="price-content">
+                            <li>
+                                <p>
+                                    50MB Espaço em disco
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Reservas de área comum
+                                </p>
+                            </li>
+                            <li>
+                                <p>Cadastro de moradores</p>
+                            </li>
+
+                            <li>
+                                <p>Cadastro de visitantes</p>
+                            </li>
+
+                            <li>
+                                <p>Suporte completo</p>
+                            </li>
+                        </ul>
+                        <div class="price-btn">
+                            <button class="outline-btn">Solicite</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /pricing -->
+                <!-- pricing -->
+                <div class="col-sm-4">
+                    <div class="pricing">
+                        <div class="price-head">
+                            <span class="price-title">Plano Prata</span>
+                            <div class="price">
+                                <h3>99,90<span class="duration">/ mês</span></h3>
+                            </div>
+                        </div>
+                        <ul class="price-content">
+                            <li>
+                                <p> 100MB Espaço em disco</p>
+                            </li>
+                            <li>
+                                <p>Todos os itens do Plano Bronze</p>
+                            </li>
+                            <li>
+                                <p>Visualização e registros de atas</p>
+                            </li>
+                            <li>
+                                <p>Visualização de pendências</p>
+                            </li>
+                        </ul>
+                        <div class="price-btn">
+                            <button class="outline-btn">Solicite</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /pricing -->
+                <!-- pricing -->
+
+                <div class="col-sm-4">
+                    <div class="pricing">
+                        <div class="price-head">
+                            <span class="price-title">Plano Ouro</span>
+                            <div class="price">
+                                <h3>149,90<span class="duration">/ mês</span></h3>
+                            </div>
+                        </div>
+                        <ul class="price-content">
+                            <li>
+                                <p>
+                                    200MB Espaço em disco
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Todos os itens do Plano Prata
+                                </p>
+                            </li>
+                            <li>
+                                <p>Visualização e registros de balancetes</p>
+                            </li>
+                            <li>
+                                <p>Registro e visualização de ocorrências </p>
+                            </li>
+                        </ul>
+                        <div class="price-btn">
+                            <button class="outline-btn">Solicite</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /pricing -->
+
+            </div>
+            <!-- Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Pricing -->
+    <!-- Testemunhas -->
+    <div id="testimonial" class="section md-padding">
+
+        <!-- Background Image -->
+        <div class="bg-img" style="background-image: url('../../Imagens/condo2.jpg'">
+            <div class="overlay"></div>
+        </div>
+        <!-- /Background Image -->
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row text-center">
+
+                <h4 class="text-center" style="color:white;font-size:25px"> Informatize, monitore e resolva tudo através da internet com nosso sistema. </h4>
+                  <br />
+
+                <a style="color:yellow;font-size:26px; cursor:pointer; font-weight:bold;" href="#contact">Experimente a versão gratuita por 30 dias, contate-nos !!</a>
+
+                @*<!-- Testimonial slider -->
+                    <div class="col-md-10 col-md-offset-1">
+                        <div id="testimonial-slider" class="owl-carousel owl-theme">
+
+                            <!-- testimonial -->
+                            <div class="testimonial">
+                                <div class="testimonial-meta">
+                                    <img src="./img/perso1.jpg" alt="">
+                                    <h3 class="white-text">John Doe</h3>
+                                    <span>Web Designer</span>
+                                </div>
+                                <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
+                            </div>
+                            <!-- /testimonial -->
+                            <!-- testimonial -->
+                            <div class="testimonial">
+                                <div class="testimonial-meta">
+                                    <img src="./img/perso2.jpg" alt="">
+                                    <h3 class="white-text">John Doe</h3>
+                                    <span>Web Designer</span>
+                                </div>
+                                <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
+                            </div>
+                            <!-- /testimonial -->
+
+                        </div>
+                    </div>
+                    <!-- /Testimonial slider -->*@
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Testimonial -->
+    <!-- Team -->
+    <div id="team" class="section md-padding">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Section header -->
+                <div class="section-header text-center">
+                    <h2 class="title">Nossa Equipe</h2>
+                </div>
+                <!-- /Section header -->
+                <!-- team -->
+
+                <div class="col-md-12">
+
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="~/Imagens/Gabriel.jpg" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Gabriel Nascimento</h3>
+                                <span>Desenvolvedor</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /team -->
+                    <!-- team -->
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="~/Imagens/tamires.jpg" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Tamires Camejo</h3>
+                                <span>Projetos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /team -->
+                    <!-- team -->
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="~/Imagens/Luana.jpg" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Luana</h3>
+                                <span>Finanças</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /team -->
+
+                </div>
+
+                <br />
+
+                <div class="col-sm-12">
+
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="~/Imagens/Renato.jpg" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Renato</h3>
+                                <span>Redes</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="~/Imagens/Rafaela.jpg" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Rafaela</h3>
+                                <span>Marketing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Team -->
+
+
+    @RenderBody()
+    <!-- Footer -->
+    <footer id="footer" class="sm-padding bg-dark">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <!-- footer logo -->
+                    <div class="footer-logo">
+                        <h4 style="color:white; margin-top: 10px; font-size:25px;"> AdminLar </h4>
+                    </div>
+                    <!-- /footer logo -->
+                    <!-- footer follow -->
+                    <ul class="footer-follow">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <br /><br />
+                        <a href='https://app.umbler.com/u/2j34odmk'>
+                            <img src='https://static.umbler.com/brand/umbler-badges/umbler-badge-hostedby-dark-bg-mono.png'
+                                 width='200' alt='Hosted by Umbler'>
+                        </a>
+                    </ul>
+
+                    <br />
+                    <!-- /footer follow -->
+                    <!-- footer copyright -->
+                    <div class="footer-copyright">
+                        <p>Copyright AdminLar © 2018. Todos direitos reservados.</p>
+                    </div>
+                    <!-- /footer copyright -->
+
+                </div>
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </footer>
+    <!-- /Footer -->
+    <!-- Back to top -->
+    <div id="back-to-top"></div>
+
+    <!-- /Back to top -->
+    <!-- jQuery Plugins -->
+
+
+</body>
+
+@Scripts.Render("~/Bundles/js")
+@RenderSection("Scripts", required: false)
+
+
+
+</html>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PI_4º_Semestre.Models.Administrador>
+
+@{
+
+    ViewBag.Title = "Pagina Inicial";
+    ViewBag.Description = "Administrador";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<br />
+
+<div class="row">
+    <div class="col-lg-6 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@ViewBag.Condominio</h3>
+                <p>Condomínio Cliente</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-building-o"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-6 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@ViewBag.Sindico</h3>
+
+                <p>Síndicos registrados</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-user"></i>
+            </div>
+            <a href="#" class="small-box-footer"><i class="fa"></i></a>
+        </div>
+    </div>
+</div>

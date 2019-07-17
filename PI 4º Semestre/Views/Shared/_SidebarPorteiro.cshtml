@@ -1,0 +1,60 @@
+﻿@using WebHelpers.Mvc5
+
+<aside class="main-sidebar control-sidebar-dark">
+    <section class="sidebar">
+
+        <br />
+
+        @* Começo do botão Procurar *@
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Procurar..." id="search-input">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        @* Fim do botão procurar *@
+
+
+        @* O tão glorioso menu lateral kkk *@
+        <ul class="sidebar-menu" data-widget="tree">
+            <br />
+            <li class="@Url.IsLinkActive("Index", "Porteiros")">
+                <a href="@Url.Action("Index", "Porteiros")"><i class="fa fa-home"></i> <span>Home</span></a>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-users"></i> <span>Visitantes</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","Visitantes")"><i class="fa fa-circle-o"></i> Cadastrar Visitante</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa  fa-gift"></i> <span>Encomendas</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","Encomendas")"><i class="fa fa-circle-o"></i> Cadastrar Encomendas</a></li>
+                </ul>
+            </li>
+
+
+        </ul>
+        @* Fim do menu lateral *@
+
+
+    </section>
+</aside>
+

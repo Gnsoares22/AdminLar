@@ -1,0 +1,425 @@
+﻿@model IEnumerable<AdminLar.Models.Condomino>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus-circle"></i>Adicionar Condôminos</a>
+        </p>
+
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Lista de Condôminos cadastrados no sistema </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblCondominos table table-bordered table-hover">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Con_Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Con_NumeroApartamento)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Con_Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Con_NumeroApartamento)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-default detalhes" data-id="@item.Codigo" data-toggle="modal" data-target="#modal-detalhes" title="Detalhes"><i class="fa fa-eye"></i></a>
+                                        <a href="#" class="btn btn-danger inativar" data-id="@item.Codigo" data-content="@item.Con_Nome" data-toggle="modal" data-target="#modal-inativacao" title="Status"><i class="fa fa-ban"></i></a>
+                                        @*<a href="@Url.Action("EnviaLinkC","Sindicos", new { ide=item.Codigo, email = item.Email })" title="chave de ativação de senha" class="btn ativa btn-success"><i class="fa fa-key"></i></a>*@
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Detalhes -->
+
+        <div class="modal fade" id="modal-detalhes">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Detalhes do Condomino</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Carrega o modal detalhes dos condominos -->
+
+                        <div id="conteudo">  </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Inativação de Condominos -->
+
+        <div class="modal fade" id="modal-inativacao">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title mensagem">Deseja Inativar condomino </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="conteudo">  </div>
+
+
+                        <input type="hidden" id="codigo" class="form-control" />
+
+
+                        <select type="text" id="state" class="form-control">
+
+                            <option> Selecione </option>
+                            <option> Ativo </option>
+                            <option> Inativo </option>
+
+                        </select>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                            <button type="submit" id="btnStatus" class="btn btn-success">Mudar Status</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal de cadastro -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cadastro de Condominos</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome do Condômino">
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                            <input type="number" class="form-control" id="numeroape" placeholder="Número Apartamento">
+                        </div>
+
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-drivers-license"></i></span>
+                            <input type="text" class="form-control" id="cpf" placeholder="CPF">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-drivers-license"></i></span>
+                            <input type="text" class="form-control" id="data" placeholder="Data de Nascimento">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <input type="text" class="form-control" id="telefone" placeholder="Telefone">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                            <input type="text" class="form-control" id="celular" placeholder="Celular">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success btn-Cadastrar">Adicionar Condomino</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+            <script type="text/javascript">
+
+       $(function () {
+
+            //adiciona data table na tabela
+
+           $('.tblCondominos').DataTable({
+
+                "oLanguage": {
+
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
+
+                "lengthChange": false
+
+
+            });
+
+           //Adiciona Mascara nos campos
+
+           $("#data").mask("00/00/0000");
+           $("#cpf").mask("000.000.000-00");
+           $("#celular").mask('(00) 00000-0000');
+           $("#telefone").mask('(00) 0000-0000');
+
+
+           //expressão para validação de email
+
+           var exp = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+
+
+            //função do click para cadastrar condominos via Json
+
+            $('.btn-Cadastrar').click(function () {
+
+                 //redireciona para ação
+                 var url = '@Url.Action("Condominos", "Sindicos")';
+
+                 //pega os atributos pelo id
+
+                 var email = $("#email").val();
+                 var nome = $("#nome").val();
+                 var numeroape = $("#numeroape").val();
+                 var cpf = $("#cpf").val();
+                 var data = $("#data").val();
+                 var telefone = $("#telefone").val();
+                 var celular = $("#celular").val();
+
+
+                if (email == "" || exp.test(email) == false) {
+
+                     toastr.error("Preencha o campo email no formato especifico de email");
+
+                } else if (nome == "" || nome.length <= 3) {
+
+                     toastr.error("Preencha o campo nome com no mínimo 2 caracteres");
+
+                }  else if (numeroape == "" || numeroape <= 3) {
+
+                     toastr.error("Preencha o campo numero do apartamento com no maximo 3 numeros");
+
+                }  else if (cpf == "") {
+
+                    toastr.error("Preencha o campo CPF");
+
+                }
+                else if (data.length < 10) {
+
+                    toastr.error("Preencha o campo data de nascimento com no mínimo 10 digitos");
+
+                } else if (telefone == "") {
+
+                    toastr.error("Preencha o Telefone");
+
+                } else if (celular == "") {
+
+                    toastr.error("Preencha o campo Celular");
+
+                }
+
+                 else {
+
+                     //function data {} pega todos os valores atraves da funcao val() e manda para action result json na Controller
+
+                    $.post(url, { Email: email, Nome: nome, CPF: cpf, Data: data, NumeroApe: numeroape, Telefone: telefone, Celular: celular },
+                         function (data) {
+
+                                 toastr.success("Salvo com sucesso");
+                                 window.location.href = "@Url.Action("ListaCondominos", "Sindicos")";
+                         })
+
+                         .fail(function () {
+
+                             alert("error");
+
+                         });
+
+                 }
+
+           });
+
+            //Modal de Inativacao
+
+           $(".inativar").click(function () {
+               var id = $(this).attr("data-id");
+
+               var descricao = $(this).attr("data-content");
+               $('.mensagem').html("<p>Informe o Status do condomino " + descricao + "?</p>");
+
+               //pega o id e joga no campo codigo com um value
+
+               $('#codigo').val(id);
+           });
+
+
+            //Click para inativar condomino mudando de Status
+
+           $("#btnStatus").click(function () {
+
+               var codigo = $("#codigo").val();
+
+               var status = $("#state").val();
+
+               var url = '@Url.Action("status", "Sindicos")';
+
+               if (status == "Selecione") {
+
+                   toastr.error("Selecione o status do condomíno")
+
+               } else {
+
+                   $.post(url, { Codigo: codigo, Status: status },
+
+                       function (data) {
+
+                           toastr.success("Status atualizado com sucesso");
+                           window.location.href = "@Url.Action("ListaCondominos", "Sindicos")";
+                       })
+                       .fail(function () {
+
+                           alert("error");
+                       });
+
+               }
+           });
+
+
+
+
+           //Carrega modal detalhes
+
+           $(".detalhes").click(function () {
+
+
+               var id = $(this).attr("data-id");
+
+               //load carrega a view controller detalhes que o layout está null para não vir bugado kkkkkk
+
+               $("#conteudo").load("/Condomino/Details/" + id, function () {
+
+
+                   $("#modal-detalhes").modal("show");
+
+               });
+
+           });
+
+
+        });
+
+            </script>
+
+        }
+
+    }
+
+}

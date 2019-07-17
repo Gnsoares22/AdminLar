@@ -1,0 +1,51 @@
+﻿@model AdminLar.Models.Reserva
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reserva</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apartamento.NomeApe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaLazer.NomeArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaLazer.NomeArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Condomino.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condomino.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataReserva)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataReserva)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

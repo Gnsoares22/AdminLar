@@ -1,0 +1,215 @@
+﻿@model IEnumerable<PI_4º_Semestre.Models.Aviso>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-aviso"><i class="fa fa-plus-circle"></i>Adicionar Aviso</a>
+
+        </p>
+
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Avisos Cadastrados </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblAvisos table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DataAviso)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Descricao)
+                                </th>
+                                <th>
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataAviso)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descricao)
+                                    </td>
+                                    <td>
+                                        <a href="/Avisos/Edit/@item.Idaviso" class="btn btn-default" title="Editar Avisos"><i class="fa fa-edit"></i></a>
+                                        <a href="/Avisos/Delete/@item.Idaviso" class="btn btn-danger" title="Deletar Avisos"><i class="fa fa-ban"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Cadastra Avisos -->
+
+        <div class="modal fade" id="modal-aviso">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cadastro de Avisos</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                            <input type="text" class="form-control" id="dataaviso" placeholder="Data do aviso">
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+
+                            <label>Descrição do Aviso</label>
+                            <input class="form-control" style="height:50px" id="descricao" placeholder="Descricao do Aviso">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success btn-Aviso">Adicionar Aviso</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+
+            <script type="text/javascript">
+
+                $(function () {
+
+                    //adiciona data table na tabela
+
+                    $('.tblAvisos').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+                    //Mascara para data
+                    $("#dataaviso").mask("00/00/0000");
+
+                    //Função Json para cadastrar aviso do condominio
+
+                    $('.btn-Aviso').click(function () {
+
+                        var dataaviso = $("#dataaviso").val();
+                        var descricao = $("#descricao").val();
+
+                        //validação data pega a data atual do sistema
+
+                        var dataagora = "@DateTime.Now.ToString("dd/MM/yyyy")";
+
+
+                        //caminho para onde vamos enviar os nossos dados
+
+                        var url = '@Url.Action("SalvaAviso", "Avisos")';
+
+                        if (dataaviso == "" || dataaviso < dataagora) {
+
+                            toastr.error("Preencha o campo data do aviso com uma data válida");
+
+                        } else if (descricao == "") {
+
+                            toastr.error("Preencha o campo descrição do aviso");
+
+                        }
+                           else  {
+
+                            $.post(url, { DataAviso: dataaviso, Descricao: descricao },
+
+                                function (data) {
+
+                                    //se ele retornar verdadeiro
+
+                                    toastr.success("Aviso cadastrada com sucesso");
+                                    window.location.href = "@Url.Action("Index", "Avisos")";
+                                })
+                                .fail(function () {
+
+                                    alert("error");
+                                });
+
+                        }
+
+                   });
+            });
+
+            </script>
+
+        }
+    }
+}

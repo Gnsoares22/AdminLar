@@ -1,0 +1,51 @@
+﻿@model PI_4º_Semestre.Models.AreaLazer
+
+@{
+    Layout = null;
+}
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+    if (logado)
+    {
+
+        <div>
+
+            <dl class="dl-horizontal">
+                <p>
+                    <b> @Html.DisplayNameFor(model => model.NomeArea) </b> : @Html.DisplayFor(model => model.NomeArea)
+
+                </p>
+
+                <p>
+                    <b> @Html.DisplayNameFor(model => model.descricao) </b> :  @Html.DisplayFor(model => model.descricao)
+
+                </p>
+
+                <p>
+                    <b> @Html.DisplayNameFor(model => model.Regras) </b> :  @Html.DisplayFor(model => model.Regras)
+
+                </p>
+
+            </dl>
+        </div>
+
+    }
+
+}

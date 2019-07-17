@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Error.cshtml";
+}
+
+<!DOCTYPE html>
+
+
+<style type="text/css">
+
+    body {
+        background: url("../../Imagens/condominio_comercial.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .box {
+        text-align: center;
+    }
+
+    .btn{
+
+        width:90px;
+        font-size:50px;
+    }
+
+    body {
+        background-color: rgb(237, 237, 237)
+    }
+
+   
+
+</style>
+
+<header class="cabecalho">
+
+    <div class="container">
+
+
+    </div>
+
+</header>
+
+<br />
+
+<body>
+
+<div class="container">
+        <div class="row">
+            <br>
+            <div class="span12 well lead box box-primary">
+                <h1 class="text-center">Acesso Negado</h1>
+                <br />
+                <p class="text-center">
+                    Você está tentando acessar uma página Restrita ou o seu Perfil pode ter sido inativado
+                    <br /><br />
+                    Entrar em contato com o Síndico ou com a equipe AdminLar
+                </p><br />
+                <a href="@Url.Action("Logar","Landing")" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Voltar para Landing Page"><i class="fa fa-building-o"></i></a>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+@section Scripts{
+    
+    <script type="text/javascript">
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+    </script>
+    
+    
+    }

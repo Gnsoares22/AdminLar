@@ -1,0 +1,156 @@
+﻿@model IEnumerable<AdminLar.Models.Balancetes>
+
+@{
+    Layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+}
+
+@{
+
+    AdminLar.Models.Condomino usuario = AdminLar.Repositories.Funcoes.GetCondomino();
+
+    bool logado = false;
+
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Balancetes Cadastrados </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="ata" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.DataBal)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Descricao)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Arquivo)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item.DataBal)
+                                    </td>
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item.Descricao)
+                                    </td>
+                                    <td class="text-center">
+                                        @{
+                                            //exibe as atas num modelo de visualização
+
+                                            string arquivo = item.Arquivo;
+
+                                            //se o arquivo for diferente de uma string vazia e nao for nula
+
+                                            if (arquivo != string.Empty)
+                                            {
+                                                if (arquivo != null)
+                                                {
+                                                    string file = arquivo;
+
+                                                    string path = System.Configuration.ConfigurationManager.AppSettings["PathWeb"] + "/Files/Atas/" + file;
+
+                                                    // <img src='@Url.Content(path)' style="height:50px;" title="Foto" /><br />
+
+                                                    <a href="@path" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i>Download</a>
+                                                }
+                                            }
+
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        @section Scripts{
+
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+            <script type="text/javascript">
+
+
+                $(function () {
+
+                    //adiciona data table na tabela
+
+                    $('#ata').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+                    //plugin mascara
+
+                    $("#data").mask("00/00/0000");
+
+
+                });
+
+            </script>
+
+        }
+
+    }
+
+}

@@ -1,0 +1,80 @@
+﻿@model AdminLar.Models.Sindico
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+    if (logado)
+    {
+
+        <dl class="dl-horizontal">
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Email) </b> :  @Html.DisplayFor(model => model.Email)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Senha) </b> :   @Html.DisplayFor(model => model.Senha)
+
+            </p>
+
+            <p>
+                <b>  @Html.DisplayNameFor(model => model.Tipo) </b> :    @Html.DisplayFor(model => model.Tipo) (Sindico)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Sin_Nome) </b> :   @Html.DisplayFor(model => model.Sin_Nome)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Sin_Cpf) </b> :  @Html.DisplayFor(model => model.Sin_Cpf)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Sin_DataNascimento) </b> :  @Html.DisplayFor(model => model.Sin_DataNascimento)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Sin_Telefone) </b> :  @Html.DisplayFor(model => model.Sin_Telefone)
+
+            </p>
+
+            <p>
+                <b>  @Html.DisplayNameFor(model => model.Sin_Celular) </b> :  @Html.DisplayFor(model => model.Sin_Celular)
+
+            </p>
+
+            <p>
+                <b>  @Html.DisplayNameFor(model => model.Sin_NumeroApartamento) </b> :  @Html.DisplayFor(model => model.Sin_NumeroApartamento)
+
+            </p>
+
+        </dl>
+
+    }
+
+}

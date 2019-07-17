@@ -1,0 +1,245 @@
+﻿@model IEnumerable<AdminLar.Models.Reserva>
+
+@{
+    Layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+}
+
+
+@{
+
+    AdminLar.Models.Condomino usuario = AdminLar.Repositories.Funcoes.GetCondomino();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-area"><i class="fa fa-plus-circle"></i>Reservar</a>
+
+        </p>
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Históricos de Reserva Geral do Condomínio </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblReserva table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AreaLazer.NomeArea)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Condomino.Con_Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DataReserva)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if (item.Status == "Reservado")
+                                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apartamento.NomeApe)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AreaLazer.NomeArea)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Condomino.Con_Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataReserva)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de cadastro de encomendas  -->
+
+        <div class="modal fade" id="modal-area">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    @using (Html.BeginForm("Reservar", "Reservas", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return Valida();" }))
+                    {
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Reservar Área</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <label>Área que deseja reservar </label>
+
+                            <select id="area" name="codigo" class="form-control">
+                                <option> Selecione </option>
+                                @{
+                                    foreach (var item in ViewBag.Area)
+                                    {
+
+
+                                        <option value="@item.Areaid">@item.NomeArea</option>
+
+                                    }
+
+                                }
+                            </select>
+
+                            <br />
+
+                            <div class="form-group">
+
+                                <label> Data da reserva </label>
+                                <input class="form-control" name="data" id="data" placeholder="Data da Reserva" />
+                            </div>
+                        </div>
+
+                        <p class="bg-red text-center"> Caso a data que você deseja reservar já esteja reservado por outro condômino, a reserva não será possível até que o mesmo cancele</p>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-success">Reservar</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+            @if (ViewBag.Error != null)
+            {
+
+                <script>
+
+                    toastr.erro("@ViewBag.Error");
+
+                </script>
+
+            }
+
+            <script type="text/javascript">
+
+                function Valida() {
+
+                    //pegando as variáveis pelo id
+
+                    var area = $('#area').val();
+                    var data = $('#data').val();
+
+                    var dataagora = "@DateTime.Now.ToString("dd/MM/yyyy")";
+
+                    if (area == "Selecione") {
+
+                        toastr.error("Selecione uma área para reservar");
+
+                        return false;
+
+                    } else if (data == "" || data < dataagora) {
+
+                        toastr.error("Digite uma data que deseja reservar");
+
+                        return false;
+
+                    }
+                      else {
+
+                        toastr.success("Reserva realizada com sucesso");
+
+                    }
+
+                }
+
+
+
+                $(function () {
+
+                    //adiciona data table na tabela
+
+                    $('.tblReserva').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+                    //plugin mascara
+
+                    $('#data').mask('00/00/0000');
+
+
+                });
+
+            </script>
+
+        }
+
+    }
+}

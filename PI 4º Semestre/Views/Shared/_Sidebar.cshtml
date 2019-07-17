@@ -1,0 +1,120 @@
+﻿@using WebHelpers.Mvc5
+
+<aside class="main-sidebar control-sidebar-dark">
+    <section class="sidebar">
+
+        <br />
+
+        @* Começo do botão Procurar *@
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Procurar..." id="search-input">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        @* Fim do botão procurar *@
+
+
+        @* O tão glorioso menu lateral kkk *@
+        <ul class="sidebar-menu" data-widget="tree">
+            <br />
+            <li class="@Url.IsLinkActive("Inicio", "Sindicos")">
+                <a href="@Url.Action("Inicio", "Sindicos")"><i class="fa fa-home"></i> <span>Home</span></a>
+            </li>
+            <li class="@Url.IsLinkActive("Ocorrencias","Sindicos")">
+                <a href="@Url.Action("Ocorrencias", "Sindicos")"><i class="fa fa-bullhorn"></i> <span> Ocorrências</span></a>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>Usuários do Condomínio</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("ListaPorteiros","Sindicos")"><i class="fa fa-circle-o"></i> Porteiros</a></li>
+                    <li><a href="@Url.Action("ListaCondominos","Sindicos")"><i class="fa fa-circle-o"></i> Condôminos </a></li>
+                    <li><a href="@Url.Action("Index","Sindicos")"><i class="fa fa-circle-o"></i> Síndicos </a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file-text-o"></i> <span>Avisos </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","Avisos")"><i class="fa fa-circle-o"></i> Cadastrar Avisos </a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa  fa-money"></i> <span>Pendências </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","Inadimplencia")"><i class="fa fa-circle-o"></i> Registrar Pendências </a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-child"></i> <span>Área de Lazer </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","AreaLazer")"><i class="fa fa-circle-o"></i> Cadastrar Áreas de Lazer </a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file-o"></i> <span>Atas de Assembleias </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","Atas")"><i class="fa fa-circle-o"></i> Cadastrar Atas de Assembleias </a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dollar"></i> <span>Balancetes </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index","Balancetes")"><i class="fa fa-circle-o"></i> Registrar balancete </a></li>
+
+                </ul>
+            </li>
+
+        </ul>
+        @* Fim do menu lateral *@
+
+    </section>
+
+</aside>
+
+
+

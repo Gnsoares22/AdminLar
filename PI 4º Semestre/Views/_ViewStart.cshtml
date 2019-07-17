@@ -1,0 +1,43 @@
+﻿@{
+    var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+    string layout = "";
+
+
+    if (controller == "Condomino")
+    {
+
+        layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+
+    }
+
+    if (controller == "Porteiro")
+    {
+
+        layout = "~/Views/Shared/_LayoutPorteiro.cshtml";
+
+    }
+
+    if (controller == "Sindico")
+    {
+
+        layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    }
+
+    if(controller == "Landing")
+    {
+
+        layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+
+
+    } else
+    {
+
+        layout = "~/Views/Shared/_Error.cshtml";
+
+
+    }
+
+    Layout = layout;
+}

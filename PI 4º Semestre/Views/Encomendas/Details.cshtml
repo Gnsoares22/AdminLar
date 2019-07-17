@@ -1,0 +1,54 @@
+﻿@model AdminLar.Models.Encomendas
+@using System.Web.Optimization
+
+
+@{
+    Layout = null;
+}
+
+
+@{
+
+    AdminLar.Models.Condomino usuario = AdminLar.Repositories.Funcoes.GetCondomino();
+    bool logado = false;
+
+    if (usuario != null && usuario.Status == "Ativo")
+    {
+        logado = true;
+
+
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+    if (logado)
+    {
+
+        <dl class="dl-horizontal">
+            <p>
+                <b>  @Html.DisplayNameFor(model => model.DataEntrega) : </b>  @Html.DisplayFor(model => model.DataEntrega)
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Descricao) : </b>   @Html.DisplayFor(model => model.Descricao)
+            </p>
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Status) : </b>   @Html.DisplayFor(model => model.Status) (Notificação enviada ao Condomíno)
+            </p>
+        </dl>
+
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

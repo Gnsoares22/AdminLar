@@ -1,0 +1,230 @@
+﻿@model IEnumerable<AdminLar.Models.Inadimplencia>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+    if (logado)
+    {
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-area"><i class="fa fa-plus-circle"></i>Registrar Pendências</a>
+        </p>
+
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Lista de Pendências registradas </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblInadimplencia table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Condomino.Con_Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.valor)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Apartamento.NomeApe)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Condomino.Con_Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.valor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal de cadastro de encomendas  -->
+
+        <div class="modal fade" id="modal-area">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    @using (Html.BeginForm("Inadimplencias", "Inadimplencia", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return Valida();" }))
+                    {
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Registro de Condôminos Pendentes</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <label>Condômino Pendente: </label>
+
+                            <select id="codigo" name="Codigo" class="form-control">
+                                <option> Selecione </option>
+                                @{
+                                    foreach (var item in ViewBag.Condominos)
+                                    {
+
+
+                                        <option value="@item.Codigo">@item.Con_Nome</option>
+
+                                    }
+
+                                }
+                            </select>
+
+                            <br />
+
+                            <div class="form-group">
+
+                                <label>Valor da Pendência (R$)</label>
+                                <input class="form-control"  name="valor" id="valor" placeholder="Valor da Pendência (R$)" />
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-success">Registrar Pendência</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+            <script src="~/Content/js/MaskMoney.js"></script>
+
+            <script type="text/javascript">
+
+
+                function Valida() {
+
+                    //pegando as variáveis pelo id
+
+                    var condomino = $('#codigo').val();
+                    var valor = $('#valor').val();
+
+
+                    if (condomino == "Selecione") {
+
+                        toastr.error("Selecione um condômino");
+
+                        return false;
+
+                    } else if (valor == "") {
+
+                        toastr.error("Preencha o valor da pendência");
+
+                        return false;
+
+                    } else {
+
+                        toastr.success("Pendência registrada com sucesso");
+
+                    }
+
+                }
+
+
+
+                $(function () {
+
+                    //adiciona data table na tabela
+
+                    $('.tblInadimplencia').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+                    //plugin mascara
+
+               //  $('#valor').mask('R$ 000.000.000.000.000,00', { reverse: true });
+
+                    $("#valor").maskMoney({
+                        prefix: 'R$ ',
+                        allowNegative: true,
+                        thousands: '.',
+                        decimal: ','
+                    });
+
+                });
+
+            </script>
+
+        }
+
+
+    }
+
+}

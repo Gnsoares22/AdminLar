@@ -1,0 +1,125 @@
+﻿@model IEnumerable<PI_4º_Semestre.Models.Aviso>
+
+@{
+    ViewBag.Title = "Pagina Inicial";
+    ViewBag.Description = "Porteiro";
+    Layout = "~/Views/Shared/_LayoutPorteiro.cshtml";
+}
+
+
+
+@{
+
+    AdminLar.Models.Porteiro usuario = AdminLar.Repositories.Funcoes.GetPorteiro();
+    bool logado = false;
+
+    if (usuario != null)
+    {
+        logado = true;
+
+
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+    if (logado)
+    {
+
+        <br />
+
+        <div class="row">
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>@ViewBag.Visitantes</h3>
+
+                        <p>Visitantes registrados</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <a href="#" class="small-box-footer"> <i class="fa"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@ViewBag.Encomendas</h3>
+
+                        <p>Encomendas registradas </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-gift"></i>
+                    </div>
+                    <a href="#" class="small-box-footer"><i class="fa"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+
+        <br />
+        <br />
+
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quadro de avisos</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DataAviso)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Descricao)
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DataAviso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Descricao)
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}

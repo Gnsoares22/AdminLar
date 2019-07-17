@@ -1,0 +1,315 @@
+﻿@model IEnumerable<AdminLar.Models.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+}
+
+
+<!-- Formulário de Feedback -->
+<!-- Contato -->
+<div id="contact" class="section md-padding">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section-header -->
+            <div class="section-header text-center">
+                <h2 class="title">Contato</h2>
+            </div>
+            <!-- /Section-header -->
+            <!-- contact -->
+            <div class="col-sm-4">
+                <div class="contact">
+                    <i class="fa fa-phone"></i>
+                    <h3>Telefone</h3>
+                    <p>(12) 98242 - 5275</p>
+                </div>
+            </div>
+            <!-- /contato -->
+            <!-- contato -->
+            <div class="col-sm-4">
+                <div class="contact">
+                    <i class="fa fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>admlteam2018@gmail.com</a></p>
+                </div>
+            </div>
+            <!-- /contato -->
+            <!-- contato -->
+            <div class="col-sm-4">
+                <div class="contact">
+                    <i class="fa fa-map-marker"></i>
+                    <h3>Endereço</h3>
+                    <p>Avenida Coronel Fernando Prestes, n° 17 Centro - Pindamonhangaba - SP </p>
+                </div>
+            </div>
+            <!-- /contato -->
+            <!-- formulario de contato-->
+            <div class="col-md-8 col-md-offset-2">
+                <div id="enviaemail" class="contact-form">
+                    <input type="text" class="input" id="nome" placeholder="Nome">
+                    <input type="email" class="input" id="emailremetente" placeholder="Email">
+                    <select class="form-control" style="background-color:#F4F4F4;" id="assunto">
+                        <option> Selecione </option>
+                        <option> Reclamações </option>
+                        <option> Teste Gratuito </option>
+                        <option> Sugestões </option>
+                        <option> Outros </option>
+                    </select>
+                    <br />
+                    <textarea class="input" id="mensagem" placeholder="Mensagem"></textarea>
+                    <button class="main-btn enviar">Enviar</button>
+                </div>
+            </div>
+            <!-- /formulario de contato -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Contato -->
+<!-- Modal de Login  -->
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+                <img src="~/Imagens/logo.png" alt="Logo" width="90" />
+            </div>
+            <div id="div-forms">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="modal-body">
+                        <div id="div-login-msg">
+                            <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+                            <span id="text-login-msg">Digite seu email e sua senha</span>
+                        </div>
+                        <br />
+                        <input id="email" name="email" class="form-control" type="email" placeholder="Email" required />
+                        <input id="senha" name="senha" class="form-control" type="password" placeholder="Senha" required />
+
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <input type="submit" data-loading-text="Carregando..." id="envia" value="Logar" class="btn btn-primary btn-lg btn-block">
+
+                        </div>
+
+                        <div>
+                            <a id="login_lost_btn" href="@Url.Action("RecuperarSenha","Landing")" class="btn btn-link">Esqueceu a senha?</a>
+                        </div>
+
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script src="~/Content/js/toastr.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#envia')
+                .click(function () {
+                    var btn = $(this)
+                    btn.button('loading')
+                    setTimeout(function () {
+                        btn.button('reset')
+                    }, 9000)
+                });
+
+
+            $('.enviar').click(function () {
+
+                var nome = $("#nome").val();
+                var email = $("#emailremetente").val();
+                var assunto = $("#assunto").val();
+                var mensagem = $("#mensagem").val();
+
+                var exp = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+
+                var url = '@Url.Action("EnviaEmail","Landing")';
+
+                if (nome == "") {
+
+                    toastr.error("Preencha o campo nome");
+
+                } else if (email == "" || exp.test(email) == false) {
+
+                    toastr.error("Preencha o campo email com um email válido");
+
+                } else if (assunto == "Selecione") {
+
+                    toastr.error("Selecione um assunto");
+
+                } else if (mensagem == "") {
+
+                    toastr.error("Escreva-nos algo");
+
+
+                } else {
+
+                    $.post(url, { Nome: nome, Email: email, Assunto: assunto, Mensagem: mensagem },
+
+                        function (data) {
+
+
+                            toastr.success("Mensagem Enviada com sucesso");
+                            window.location.href = "@Url.Action("Logar", "Landing")";
+
+
+                        })
+
+                        .fail(function () {
+
+
+                            alert("error");
+
+                        });
+
+                }
+
+
+            });
+
+            
+        });
+
+
+    </script>
+
+
+    @if (ViewBag.Error != null)
+    {
+
+        <script type="text/javascript">
+
+            toastr.options.closeButton = true;
+            toastr.error("Usuário ou senha inválidos");
+
+
+        </script>
+
+    }
+
+}
+
+<style type="text/css">
+
+    /* Css do modal de login */
+
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+
+
+    #login-modal .modal-dialog {
+        width: 350px;
+        border-radius: 15px;
+    }
+
+    #login-modal input[type=text], input[type=password] {
+        margin-top: 15px;
+        height: 50px;
+    }
+
+
+
+    #img_logo {
+        max-height: 90px;
+        max-width: 90px;
+    }
+
+    .modal-backdrop.in {
+        filter: alpha(opacity=50);
+        opacity: .8;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        border: 1px solid #fff;
+        border-radius: 0px;
+        outline: 0;
+    }
+
+    .modal-header {
+        min-height: 16.43px;
+        padding: 15px 15px 15px 15px;
+        border-bottom: 0px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 5px 15px 5px 15px;
+    }
+
+    .modal-footer {
+        padding: 15px 15px 15px 15px;
+        text-align: left;
+        border-top: 0px;
+    }
+
+    .checkbox {
+        margin-bottom: 0px;
+    }
+
+    .btn {
+        border-radius: 0px;
+    }
+
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+        }
+
+    .btn-lg, .btn-group-lg > .btn {
+        border-radius: 0px;
+    }
+
+    .btn-link {
+        padding: 5px 10px 0px 0px;
+        color: #95a5a6;
+    }
+
+        .btn-link:hover, .btn-link:focus {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+    .glyphicon {
+        top: 0px;
+    }
+
+    .form-control {
+        border-radius: 0px;
+    }
+</style>
+

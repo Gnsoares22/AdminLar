@@ -1,0 +1,124 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Error.cshtml";
+}
+
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title> Recuperar senha </title>
+
+</head>
+
+<body>
+
+    <style type="text/css">
+
+        body {
+            background: url("../../Imagens/condominio_comercial.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+
+
+    <header class="cabecalho">
+
+        <div class="container">
+
+
+        </div>
+
+    </header>
+
+    <br />
+    <br />
+
+    <div class="form-gap"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                            <h3><i class="fa  fa-lock fa-4x"></i></h3>
+                            <h2 class="text-center">Recupere sua senha !!</h2>
+                            <p>Digite seu email abaixo .</p>
+                            <div class="panel-body">
+
+                                @using (Html.BeginForm("Recupera", "Landing"))
+                                {
+
+                                    @Html.AntiForgeryToken()
+
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                            <input id="senhas" name="email" placeholder="Digite seu email" class="form-control" type="email">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <div class="g-recaptcha" data-sitekey="6LfK1j4UAAAAAASCUJNH8Z6AiXXRFCUmNmFn6yff">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input name="recover-submit" id="btn" class="btn btn-lg btn-primary btn-block" value="Recuperar" type="submit">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <a style="cursor:pointer;" href="@Url.Action("Logar", "Landing")"> Voltar para Landing Page </a>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @section Scripts{
+
+        <script src="~/Content/js/toastr.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+        @if (TempData["Error"] != null)
+        {
+
+            <script type="text/javascript">
+
+                toastr.error("@TempData["Error"]");
+
+            </script>
+
+        }
+
+
+        @if (TempData["Sucesso"] != null)
+        {
+
+            <script type="text/javascript">
+
+                toastr.success("Um link para redefinir sua senha foi enviado para o seu email");
+
+            </script>
+
+
+        }
+
+
+    }
+</body>

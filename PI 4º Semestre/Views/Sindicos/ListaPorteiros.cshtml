@@ -1,0 +1,350 @@
+﻿@model IEnumerable<AdminLar.Models.Porteiro>
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+        <link href="~/Content/css/DataTable.css" rel="stylesheet" />
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus-circle"></i>Adicionar Porteiro</a>
+
+        </p>
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Lista de Porteiros cadastrados no sistema </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblPorteiros table table-bordered table-hover">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Por_Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Por_Cpf)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Por_Endereco)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Por_Telefone)
+                                </th>
+                                <th>
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Por_Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Por_Cpf)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Por_Endereco)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Por_Celular)
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-default detalhes" data-id="@item.Codigo" data-toggle="modal" data-target="#modal-detalhes" title="Detalhes"><i class="fa fa-eye"></i></a>
+                                        @*<a href="@Url.Action("EnviaLink","Sindicos", new { ide=item.Codigo, email = item.Email })" onsubmit="this.disabled=true;" title="chave de ativação de senha" class="btn ativa btn-success"><i class="fa fa-key"></i></a>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Detalhes -->
+
+        <div class="modal fade" id="modal-detalhes">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Detalhes do Porteiro</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Carrega o modal detalhes dos porteiros -->
+
+                        <div id="conteudo">  </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal de cadastro -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cadastro de Porteiros</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome do Porteiro">
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                            <input type="text" class="form-control" id="endereco" placeholder="Endereço">
+                        </div>
+
+                        <br>
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-drivers-license"></i></span>
+                            <input type="text" class="form-control" id="cpf" placeholder="CPF">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-drivers-license"></i></span>
+                            <input type="text" class="form-control" id="data" placeholder="Data de Nascimento">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <input type="text" class="form-control" id="telefone" placeholder="Telefone">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                            <input type="text" class="form-control" id="celular" placeholder="Celular">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                        <button type="submit" id="btnCadastra" class="btn btn-success">Adicionar Porteiro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+            <script type="text/javascript">
+
+       $(function () {
+
+            //adiciona data table na tabela
+
+            $('.tblPorteiros').DataTable({
+
+                "oLanguage": {
+
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
+
+                "lengthChange": false
+
+
+            });
+
+           
+           //Adiciona Mascara nos campos
+
+           $("#data").mask("00/00/0000");
+           $("#cpf").mask("000.000.000-00");
+           $("#celular").mask('(00) 00000-0000');
+           $("#telefone").mask('(00) 0000-0000');
+
+           //expressão para validação de email
+
+           var exp = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+
+
+            //função do click para cadastrar porteiros via Json
+
+            $("#btnCadastra").click(function () {
+
+                 //redireciona para ação
+                 var url = '@Url.Action("SalvarPorteiros", "Sindicos")';
+
+                 //pega os atributos pelo id
+
+                 var email = $("#email").val();
+                 var nome = $("#nome").val();
+                 var endereco = $("#endereco").val();
+                 var cpf = $("#cpf").val();
+                 var data = $("#data").val();
+                 var telefone = $("#telefone").val();
+                 var celular = $("#celular").val();
+
+                if (email == "" || exp.test(email) == false) {
+
+                    toastr.error("Preencha o campo com um email válido");
+
+                } else if (nome == "" || nome.length <= 3) {
+
+                    toastr.error("Preencha o campo nome com no mínimo 2 caracteres");
+
+                } else if (endereco == "") {
+
+                     toastr.error("Preencha o campo Endereco");
+
+                } else if (cpf == "") {
+
+                    toastr.error("Preencha o campo CPF");
+
+                }
+                else if (data.length < 10) {
+
+                    toastr.error("Preencha o campo data de nascimento com no mínimo 10 digitos");
+
+                } else if (telefone == "") {
+
+                    toastr.error("Preencha o Telefone");
+
+                } else if (celular == "") {
+
+                    toastr.error("Preencha o campo Celular");
+
+                }
+
+                 else {
+
+                     //function data {} pega todos os valores atraves da funcao val() e manda para action result json na Controller
+
+                    $.post(url, { Email: email, Nome: nome, CPF: cpf, Data: data, Endereco: endereco, Telefone: telefone, Celular: celular },
+                         function (data) {
+
+                                 toastr.success("Salvo com sucesso");
+                                 window.location.href = "@Url.Action("ListaPorteiros", "Sindicos")";
+                         })
+
+                         .fail(function () {
+
+                             alert("error");
+
+                         });
+
+                 }
+
+           });
+
+
+
+           //Carrega modal detalhes
+
+           $(".detalhes").click(function () {
+
+
+               var id = $(this).attr("data-id");
+
+               //load carrega a view controller detalhes que o layout está null para não vir bugado kkkkkk
+
+               $("#conteudo").load("/Porteiros/Details/" + id, function () {
+
+
+                   $("#modal-detalhes").modal("show");
+
+               });
+
+           });
+
+
+
+
+        });
+
+            </script>
+
+        }
+
+    }
+
+}

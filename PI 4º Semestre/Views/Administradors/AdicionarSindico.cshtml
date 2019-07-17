@@ -1,0 +1,322 @@
+﻿@model IEnumerable<AdminLar.Models.Sindico>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+
+@{
+
+    PI_4º_Semestre.Models.Administrador usuario = AdminLar.Repositories.Funcoes.GetAdministrador();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus-circle"></i>Adicionar Síndico</a>
+        </p>
+
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Lista de Síndicos cadastrados no sistema </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblSindicos table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Sin_Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Sin_Telefone)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Sin_Celular)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+                                </th>
+                                @*<th>
+                                    Ações
+                                </th>*@
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sin_Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sin_Telefone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sin_Celular)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Apartamento.NomeApe)
+                                    </td>
+                                    @*<td>
+                                       <a href="@Url.Action("EnviarLink", "Administradors", new { ide=item.Codigo, email = item.Email})" title="chave de ativação" class="btn btn-success"><i class="fa fa-key"></i></a>
+
+                                    </td>*@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal de cadastro -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cadastro de Síndicos</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome do Síndico">
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                            <input type="number" class="form-control"  max="3" id="numeroape" placeholder="Número Apartamento">
+                        </div>
+
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-drivers-license"></i></span>
+                            <input type="text" class="form-control" id="cpf" placeholder="CPF">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-drivers-license"></i></span>
+                            <input type="text" class="form-control" id="data" placeholder="Data de Nascimento">
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <input type="text" class="form-control" id="telefone" placeholder="Telefone">
+                        </div>
+
+                        <br />
+
+                        <label> Condomínio </label>
+
+                        <select id="codigo" name="Codigo" class="form-control">
+                            <option> Selecione </option>
+                            @{
+                                foreach (var item in ViewBag.Apartamento)
+                                {
+
+                                    <option value="@item.ApeId">@item.NomeApe</option>
+
+                                }
+
+                            }
+                        </select>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                            <input type="text" class="form-control" id="celular" placeholder="Celular">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success btn-Cadastrar">Adicionar Síndico</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @section Scripts{
+
+
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+
+                    $('.tblSindicos').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+
+                    //Mascara para data e para Rg
+                    $("#data").mask("00/00/0000");
+                    $("#cpf").mask("000.000.000-00");
+                    $("#celular").mask('(00) 00000-0000');
+                    $("#telefone").mask('(00) 0000-0000');
+
+
+                    //expressão para validação de email
+
+                    var exp = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+
+
+                    //função do click para cadastrar sindicos via Json
+
+                    $('.btn-Cadastrar').click(function () {
+
+                        //redireciona para ação
+                        var url = '@Url.Action("Sindicos", "Administradors")';
+
+                        //pega os atributos pelo id
+
+                        var email = $("#email").val();
+                        var nome = $("#nome").val();
+                        var numeroape = $("#numeroape").val();
+                        var cpf = $("#cpf").val();
+                        var data = $("#data").val();
+                        var telefone = $("#telefone").val();
+                        var celular = $("#celular").val();
+                        var apartamento = $("#codigo").val();
+
+                        if (email == "" || exp.test(email) == false) {
+
+                            toastr.error("Preencha o campo email no formato especifico de email");
+
+                        } else if (nome == "" || nome.length <= 3) {
+
+                            toastr.error("Preencha o campo nome com no mínimo 2 caracteres");
+
+                        } else if (numeroape == "") {
+
+                            toastr.error("Preencha o campo número do apartamento com no maximo 3 numeros");
+
+                        } else if (cpf == "") {
+
+                            toastr.error("Preencha o campo CPF");
+
+                        }
+                        else if (data.length < 10) {
+
+                            toastr.error("Preencha o campo data de nascimento com no mínimo 10 digitos");
+
+                        } else if (telefone == "") {
+
+                            toastr.error("Preencha o Telefone");
+
+                        } else if (apartamento == "Selecione") {
+
+                            toastr.error("Preencha o campo Condomínio");
+
+                        }
+
+                        else if (celular == "") {
+
+                            toastr.error("Preencha o campo Celular");
+
+                        }
+
+                        else {
+
+                            //function data {} pega todos os valores atraves da funcao val() e manda para action result json na Controller
+
+                            $.post(url, { Email: email, Nome: nome, CPF: cpf, Data: data, NumeroApe: numeroape, Telefone: telefone, Celular: celular, Codigo: apartamento },
+                                function (data) {
+
+                                    toastr.success("Síndico cadastrado com sucesso");
+                                    window.location.href = "@Url.Action("AdicionarSindico", "Administradors")";
+                                })
+
+                                .fail(function () {
+
+                                    alert("error");
+
+                                });
+
+                        }
+
+                    });
+
+
+                });
+
+            </script>
+
+        }
+
+    }
+
+}

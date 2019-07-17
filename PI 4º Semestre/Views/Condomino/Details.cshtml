@@ -1,0 +1,73 @@
+﻿@model AdminLar.Models.Condomino
+
+@{
+    Layout = null;
+}
+
+@{
+
+    AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+    if (logado)
+    {
+
+        <dl class="dl-horizontal">
+            <p>
+                <b>@Html.DisplayNameFor(model => model.Email)</b> :  @Html.DisplayFor(model => model.Email)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Tipo) </b> :  @Html.DisplayFor(model => model.Tipo) (Condomino)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Con_Nome) </b> :  @Html.DisplayFor(model => model.Con_Nome)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Con_DataNascimento) </b> :  @Html.DisplayFor(model => model.Con_DataNascimento)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Con_Telefone) </b> :  @Html.DisplayFor(model => model.Con_Telefone)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Con_Celular) </b> :  @Html.DisplayFor(model => model.Con_Celular)
+
+            </p>
+
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Con_NumeroApartamento) </b> :  @Html.DisplayFor(model => model.Con_NumeroApartamento)
+
+            </p>
+
+            <p>
+              
+               <b> @Html.DisplayNameFor(model => model.Status) </b> : @Html.DisplayFor(model => model.Status)
+
+            </p>
+
+            
+        </dl>
+    }
+}

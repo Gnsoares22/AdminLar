@@ -1,0 +1,90 @@
+﻿@using System.Web.Optimization
+@using WebHelpers.Mvc5.Enum
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Title))
+        {
+            @ViewBag.Title@: -
+        }
+        AdminLAR
+    </title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @Styles.Render("~/Bundles/css")
+    @Scripts.Render("~/Bundles/js")
+
+</head>
+
+<body class="hold-transition skin-blue fixed sidebar-mini">
+
+    @{
+
+        AdminLar.Models.Sindico usuario = AdminLar.Repositories.Funcoes.GetUsuario();
+        bool logado = false;
+        if (usuario != null)
+        {
+            logado = true;
+        }
+        else
+        {
+
+            @RenderBody()
+
+            <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado","Landing")";
+
+            </script>
+
+        }
+
+
+
+        if (logado)
+        {
+            <div class="wrapper">
+                @Html.Partial("_Header")
+                @Html.Partial("_Sidebar")
+
+                <div class="content-wrapper" style="background-color:#ededed;">
+                    <section class="content-header">
+                        <h1>
+                            @ViewBag.Title
+                            <small>@ViewBag.Description</small>
+                        </h1>
+                    </section>
+
+                    <section class="content" style="height:750px">
+                        @RenderBody()
+                    </section>
+                </div>
+            </div>
+
+
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    Data e Hora:  <b>@DateTime.Now</b>
+                </div>
+                <strong>Copyright &copy; 2018 <a href="#">AdminLar</a>.</strong> Todos direitos
+                reservados.
+            </footer>
+
+            <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+            <script src="@EnumHandler.HandlerUrl"></script>
+            @Scripts.Render("~/bundles/jqueryval")
+            <script src="~/Scripts/Highcharts-4.0.1/js/highcharts.js"></script>
+            <script src="~/Scripts/Highcharts-4.0.1/js/modules/exporting.js"></script>
+            @RenderSection("Scripts", required: false)
+        }
+
+    }
+
+</body>
+
+
+</html>

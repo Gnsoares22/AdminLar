@@ -1,0 +1,161 @@
+﻿@model AdminLar.Models.Condomino
+@using System.Web.Optimization
+
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+}
+
+
+@{
+
+    AdminLar.Models.Condomino usuario = AdminLar.Repositories.Funcoes.GetCondomino();
+    bool logado = false;
+
+    if (usuario != null && usuario.Status == "Ativo")
+    {
+        logado = true;
+
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+    if (logado)
+    {
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Editar Perfil </h3></div>
+            <div class="box-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Codigo)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    @Html.HiddenFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    @Html.HiddenFor(model => model.Confirmasenha, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.HiddenFor(model => model.Tipo, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Con_Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Con_Nome, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Con_Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Con_Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Con_Cpf, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Con_Cpf, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Con_DataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Con_DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Con_DataNascimento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Con_Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Con_Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Con_Telefone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Con_Celular, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Con_Celular, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Con_Celular, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Con_NumeroApartamento, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Con_NumeroApartamento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Con_NumeroApartamento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.HiddenFor(model => model.ApeId, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Editar" class="btn btn-success btn-lg" />
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+        </div>
+
+        @section Scripts {
+
+            <script src="~/Content/js/toastr.min.js"></script>
+            @Scripts.Render("~/bundles/jqueryval")
+
+
+            @if (ViewBag.Success != null)
+            {
+
+                <script type="text/javascript">
+
+                    toastr.success("Dados alterados com sucesso");
+
+                </script>
+
+            }
+            else if (ViewBag.Error != null)
+            {
+
+                <script type="text/javascript">
+
+                    toastr.error("@ViewBag.Error");
+
+                </script>
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,210 @@
+﻿@model IEnumerable<AdminLar.Models.Reserva>
+
+@{
+    Layout = "~/Views/Shared/_LayoutCondomino.cshtml";
+}
+
+@{
+
+    AdminLar.Models.Condomino usuario = AdminLar.Repositories.Funcoes.GetCondomino();
+    bool logado = false;
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Minhas reservas realizadas </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblReserva table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AreaLazer.NomeArea)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Condomino.Con_Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DataReserva)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apartamento.NomeApe)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AreaLazer.NomeArea)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Condomino.Con_Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataReserva)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    <a href="#" data-id="@item.ReservaId" data-toggle="modal" data-target="#modal-cancela" title="cancelar reserva" class="cancela btn btn-danger"><i class="fa fa-ban"></i></a>
+
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal de cancelamento de reserva -->
+
+
+        <div id="modal-cancela" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title">Cancelamento de reserva</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" id="codigo" />
+
+                        Deseja cancelar esta reserva?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> Fechar </button>
+                        <button type="button" class="btn btn-success" id="btnCancela"> Cancelar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+            <script type="text/javascript">
+
+
+                $(function () {
+
+                    //adiciona data table na tabela
+
+                    $('.tblReserva').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+
+                    $('.cancela').click(function () {
+
+                        var id = $(this).attr("data-id");
+
+                        $('#codigo').val(id);
+
+
+                    });
+
+                    //função para cancelar encomenda via Json
+
+                    $("#btnCancela").click(function () {
+
+
+                        var codigo = $("#codigo").val();
+
+                        var url = "@Url.Action("Cancela","Reservas")";
+
+
+                        $.post(url, { Codigo: codigo },
+                            function (data) {
+
+                                toastr.success("Reserva Cancelada com sucesso");
+                                window.location.href = "@Url.Action("MinhasReservas", "Reservas")";
+                            })
+
+                            .fail(function () {
+
+                                alert("error");
+
+                            });
+
+
+                    });
+
+
+                });
+
+            </script>
+
+        }
+
+
+    }
+
+}

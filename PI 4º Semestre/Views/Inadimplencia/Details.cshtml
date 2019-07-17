@@ -1,0 +1,51 @@
+﻿@model AdminLar.Models.Inadimplencia
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inadimplencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Apartamento.NomeApe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apartamento.NomeApe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Condomino.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condomino.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,91 @@
+﻿@model DotNet.Highcharts.Highcharts
+
+@{
+    ViewBag.Title = "Pagina Inicial";
+    ViewBag.Description = "Síndico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@ViewBag.Atas</h3>
+                <p>Atas registradas</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-file"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@ViewBag.Inadimplencia</h3>
+
+                <p>Pendências registradas</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-money"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>@ViewBag.Soma</h3>
+
+                <p>Usuários registrados no condomínio</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>@ViewBag.Ocorrencia</h3>
+
+                <p>Ocorrências feitas por condôminos</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-bullhorn"></i>
+            </div>
+            <a href="#" class="small-box-footer"> <i class="fa"></i></a>
+        </div>
+        <br />
+        <br />
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box box-primary">
+            <div class="box-header with-border text-center">
+                <h3 class="box-title text-center">Gráfico de Ocorrências por mês</h3>
+            </div>
+            <div class="box-body">
+
+
+                @(Model)
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

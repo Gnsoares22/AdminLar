@@ -1,0 +1,212 @@
+﻿@model IEnumerable<PI_4º_Semestre.Models.Apartamento>
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+
+@{
+
+    PI_4º_Semestre.Models.Administrador usuario = AdminLar.Repositories.Funcoes.GetAdministrador();
+
+
+    bool logado = false;
+
+    if (usuario != null)
+    {
+        logado = true;
+    }
+    else
+    {
+
+        <script type="text/javascript">
+
+                window.location.href = "@Url.Action("AcessoNegado", "Landing")";
+
+        </script>
+
+    }
+
+
+
+    if (logado)
+    {
+
+        <p>
+            <a class="btn btn-app bg-red" data-toggle="modal" data-target="#modal-apartamento"><i class="fa fa-plus-circle"></i>Adicionar Condomínio</a>
+
+        </p>
+
+
+        <div class="box box-primary">
+            <div class="box-header with-border"><h3 class="box-title"> Condomínios Cadastrados </h3></div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="tblAvisos table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NomeApe)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Endereco)
+                                </th>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeApe)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Endereco)
+                                    </td>
+                                        
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Cadastra Avisos -->
+
+        <div class="modal fade" id="modal-apartamento">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cadastro de Condomínios</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+                            <input class="form-control" id="nomeape" placeholder="Nome do Condomínio">
+
+                        </div>
+
+                        <br />
+
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                            <input class="form-control" id="endereco" placeholder="Endereço do Condomínio">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success btn-Adicionar">Adicionar Condomínio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @section Scripts{
+
+            <script src="~/Content/js/DataTable.js"></script>
+            <script src="~/Content/js/toastr.min.js"></script>
+            <script src="~/Content/js/jquery.mask.min.js"></script>
+
+
+            <script type="text/javascript">
+
+                $(function () {
+
+                    //adiciona data table na tabela
+
+                    $('.tblAvisos').DataTable({
+
+                        "oLanguage": {
+
+                            "sEmptyTable": "Nenhum registro encontrado",
+                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLoadingRecords": "Carregando...",
+                            "sProcessing": "Processando...",
+                            "sZeroRecords": "Nenhum registro encontrado",
+                            "sSearch": "Pesquisar",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                "sSortDescending": ": Ordenar colunas de forma descendente"
+                            }
+                        },
+
+                        "lengthChange": false
+
+
+                    });
+
+
+                    //Função Json para cadastrar condominio
+
+                    $('.btn-Adicionar').click(function () {
+
+                        var  nome = $("#nomeape").val();
+                        var  endereco = $("#endereco").val();
+
+                    
+                        //caminho para onde vamos enviar os nossos dados
+
+                        var url = '@Url.Action("SalvaApe", "Administradors")';
+
+                        if (nome == "") {
+
+                            toastr.error("Preencha o campo nome do condomínio");
+
+                        } else if (endereco == "") {
+
+                            toastr.error("Preencha o campo endereço do condomínio");
+
+                        }
+                           else  {
+
+                            $.post(url, { Nome: nome, Endereco: endereco },
+
+                                function (data) {
+
+                                    //se ele retornar verdadeiro
+
+                                    toastr.success("Condomínio cadastrado com sucesso");
+                                    window.location.href = "@Url.Action("AdicionarApartamento", "Administradors")";
+
+                                })
+                                .fail(function () {
+
+                                    alert("error");
+
+                                });
+
+                        }
+
+                   });
+            });
+
+            </script>
+
+        }
+    }
+}
+
+
+
+

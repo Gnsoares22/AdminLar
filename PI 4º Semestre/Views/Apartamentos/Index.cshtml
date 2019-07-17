@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PI_4º_Semestre.Models.Apartamento>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeApe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeApe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endereco)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ApeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ApeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ApeId })
+        </td>
+    </tr>
+}
+
+</table>

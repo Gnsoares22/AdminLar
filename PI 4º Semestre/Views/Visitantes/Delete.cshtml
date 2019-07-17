@@ -1,0 +1,52 @@
+﻿@model PI_4º_Semestre.Models.Visitante
+
+@{
+    Layout = "~/Views/Shared/_LayoutPorteiro.cshtml";
+}
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Condomino.Con_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condomino.Con_Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroRg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroRg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeVisitante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeVisitante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroApartamentoVisita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroApartamentoVisita)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

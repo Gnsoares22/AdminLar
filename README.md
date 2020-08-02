@@ -20,6 +20,7 @@ Já pensou em um sistema de administração top para gerenciar seu condomínio. 
   ir no Nuget Package Manager >  Nuget Package Manager for Solution > Installed (procurar o bootstrap e atualizar para sua versão mais nova)
 </ul>
 
+<br>
 
 <h1> :gear: Executando as models com Entity Framework </h1>
 

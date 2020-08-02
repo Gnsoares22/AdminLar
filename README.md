@@ -33,7 +33,7 @@ Visual Studio (Developer PowerShell)) : </p>
  3° Passo -  PS C:\User\Gabriel\source\repos\AdminLar: Update-Database (vá no seu mysql e atualize a sessão das tabelas, 
  você verá que a migration adicionada estará lá)
  
- Se der erro, certifique que você instalou o "MySQL.Data.Entities" no Nuget Package Manager e que ela 
+ Se der erro, certifique que você instalou o "MySQL.Data.Entities" no Nuget Package Manager e tambem verifique se 
  está presente nas References do seu projeto.
  
 ```

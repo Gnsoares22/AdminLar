@@ -21,7 +21,7 @@ Já pensou em um sistema de administração top para gerenciar seu condomínio. 
 </ul>
 
 
-<h1 :gear: > Executando as models como tabelas SQL com Entity Framework </h1>
+<h1> :gear: Executando as models com Entity Framework </h1>
 
 <p> Para migrar as tabelas com entity framework para o Mysql, execute os seguintes comandos no terminal (ctrl + ' <- ativa o termina integrado no 
 Visual Studio (Developer PowerShell)) : </p>

@@ -28,9 +28,9 @@ Já pensou em um sistema de administração top para gerenciar seu condomínio. 
 Visual Studio (Developer PowerShell)) : </p>
 
 ```
- 1° Passo -  PS C:\User\Gabriel\source\repos\AdminLar: Enable-Migrations (exemplo de caminho padrão no meu terminal)
- 2° Passo -  PS C:\User\Gabriel\source\repos\AdminLar: Add-Migration nome_classe_model (coloque o nome da model ex: atas)
- 3° Passo -  PS C:\User\Gabriel\source\repos\AdminLar: Update-Database (vá no seu mysql e atualize a sessão das tabelas, 
+ 1° Passo - PS C:\User\Gabriel\source\repos\AdminLar: Enable-Migrations (exemplo de caminho padrão no meu terminal)
+ 2° Passo - PS C:\User\Gabriel\source\repos\AdminLar: Add-Migration nome_classe_model (coloque o nome da model ex: atas)
+ 3° Passo - PS C:\User\Gabriel\source\repos\AdminLar: Update-Database (vá no seu mysql e atualize a sessão das tabelas, 
  você verá que a migration adicionada estará lá)
  
  Se der erro, certifique que você instalou o "MySQL.Data.Entities" no Nuget Package Manager e tambem verifique se 
